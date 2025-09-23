@@ -28,7 +28,12 @@ with open(CONFIG_PATH, "r") as f:
     config = yaml.safe_load(f)
 
 tracking_uri = config["global_variables"]["tracking_uri"]
-dagshub.init(repo_owner='JayJajoo', repo_name='END_TO_END_MLOPS', mlflow=True)
+dagshub.init(
+    repo_owner='JayJajoo', 
+    repo_name='END_TO_END_MLOPS', 
+    mlflow=True,
+    token=os.environ.get("DAGSHUB_TOKEN")
+)
 mlflow.set_tracking_uri(tracking_uri)
 
 # Dataset paths
