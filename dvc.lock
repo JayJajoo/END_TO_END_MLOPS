@@ -5,8 +5,8 @@ stages:
     deps:
     - path: src/data_ingestion.py
       hash: md5
-      md5: 79d121c9a6daa20195e1af8467448c4a
-      size: 1768
+      md5: 6fa07e8a17c88fd3e03f02f439ab16a7
+      size: 763
     outs:
     - path: data/test.csv
       hash: md5
@@ -29,8 +29,8 @@ stages:
       size: 2358
     - path: .\src\train.py
       hash: md5
-      md5: 8f21cc9083a3510362d9367cf81c7c70
-      size: 5429
+      md5: bf411c90a4c311bbe0189c20f4e021f6
+      size: 5464
     params:
       params.yaml:
         global_variables.tracking_uri: 
@@ -84,7 +84,7 @@ stages:
       size: 131
     - path: .\reports\model_info.json
       hash: md5
-      md5: 4607fc275821c057cd84be319ec0f932
+      md5: 85262d3c0891a7b025d47f5126152770
       size: 287
   model_evaluation:
     cmd: python .\src\eval.py
@@ -95,12 +95,12 @@ stages:
       size: 131
     - path: .\reports\model_info.json
       hash: md5
-      md5: 4607fc275821c057cd84be319ec0f932
+      md5: 85262d3c0891a7b025d47f5126152770
       size: 287
     - path: .\src\eval.py
       hash: md5
-      md5: c27aaed2e49b9ee576d334e3f663d964
-      size: 1785
+      md5: c46eb5fa8a0ea3ae5f378e403414bed9
+      size: 1769
     params:
       params.yaml:
         global_variables.tracking_uri: 
