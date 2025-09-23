@@ -15,6 +15,7 @@ jobs:
       DAGSHUB_TOKEN: ${{ secrets.DAGSHUB_TOKEN }}
       GTHUB_USERNAME: ${{ secrets.GTHUB_USERNAME }}
       GTHUB_TOKEN: ${{ secrets.GTHUB_TOKEN }}
+      GTHUB_EMAIL: ${{ secrets.GTHUB_EMAIL }}
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
@@ -32,6 +33,11 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+      - name: Configure Git
+        run: |
+          git config --global user.name "${GTHUB_USERNAME}"
+          git config --global user.email "${GTHUB_EMAIL}"
+
       - name: Configure DVC remote (S3)
         run: |
           dvc remote add -f myremote s3://end-to-end-mlops/mlops_end_to_end_with_cicd
@@ -46,8 +52,6 @@ jobs:
 
       - name: Commit changes
         run: |
-          git config --global user.name "${{ secrets.GTHUB_USERNAME }}"
-          git config --global user.email "your-email@example.com"
           git add .
           git commit -m "CI: update DVC outputs" || echo "No changes to commit"
           git push
