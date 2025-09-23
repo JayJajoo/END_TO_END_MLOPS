@@ -1,2 +1,5 @@
 mlops
 dvc
+data/test.csv
+data/train.csv
+mlopsenv
