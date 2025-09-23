@@ -19,6 +19,12 @@ MODEL_DIR = os.path.join(BASE_DIR, "model")
 REPORTS_DIR = os.path.join(BASE_DIR, "reports")
 CONFIG_PATH = os.path.join(BASE_DIR, "params.yaml")
 
+# dagshub.init(
+#     repo_owner='JayJajoo', 
+#     repo_name='END_TO_END_MLOPS', 
+#     mlflow=True,
+# )
+
 # Ensure directories exist
 os.makedirs(MODEL_DIR, exist_ok=True)
 os.makedirs(REPORTS_DIR, exist_ok=True)
@@ -28,12 +34,12 @@ with open(CONFIG_PATH, "r") as f:
     config = yaml.safe_load(f)
 
 tracking_uri = config["global_variables"]["tracking_uri"]
-dagshub.init(
-    repo_owner='JayJajoo', 
-    repo_name='END_TO_END_MLOPS', 
-    mlflow=True,
-    token=os.environ.get("DAGSHUB_TOKEN")
-)
+
+dagshub_token = os.getenv("DAGSHUB_TOKEN")
+
+os.environ["MLFLOW_TRACKING_USERNAME"] = dagshub_token
+os.environ["MLFLOW_TRACKING_PASSWORD"] = dagshub_token
+
 mlflow.set_tracking_uri(tracking_uri)
 
 # Dataset paths
