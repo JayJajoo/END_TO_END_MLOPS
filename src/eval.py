@@ -1,26 +1,24 @@
+import os
+import json
+import yaml
 import mlflow
 from mlflow.tracking import MlflowClient
-import json
-import os
-import yaml
 
 # Base project path (two levels up from src)
-PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
+BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 
 # Paths to config and model info
-config_path = os.path.join(PATH, "params.yaml")
-model_info_path = os.path.join(PATH, "reports", "model_info.json")
+CONFIG_PATH = os.path.join(BASE_DIR, "params.yaml")
+MODEL_INFO_PATH = os.path.join(BASE_DIR, "reports", "model_info.json")
 
 # Load config
-with open(config_path, "r") as f:
+with open(CONFIG_PATH, "r") as f:
     config = yaml.safe_load(f)
 
-# MLflow tracking URI
-MLFLOW_TRACKING_URI = config["global_variables"]["tracking_uri"]
-mlflow.set_tracking_uri(MLFLOW_TRACKING_URI)
+mlflow.set_tracking_uri(config["global_variables"]["tracking_uri"])
 
-# Load run + model info
-with open(model_info_path, "r") as f:
+# Load model info
+with open(MODEL_INFO_PATH, "r") as f:
     model_info = json.load(f)
 
 parent_run_id = model_info.get("parent_run_id")
@@ -45,12 +43,7 @@ f1_score = run.data.metrics.get("test_f1_weighted", 0)
 # Threshold check
 THRESHOLD = 0.96
 
-if all([
-    accuracy >= THRESHOLD,
-    precision >= THRESHOLD,
-    recall >= THRESHOLD,
-    f1_score >= THRESHOLD
-]):
+if all([accuracy >= THRESHOLD, precision >= THRESHOLD, recall >= THRESHOLD, f1_score >= THRESHOLD]):
     print("✅ PASS : Model metrics above threshold.")
 else:
     print("❌ FAIL : Model metrics below threshold.")

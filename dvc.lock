@@ -29,8 +29,8 @@ stages:
       size: 2358
     - path: .\src\train.py
       hash: md5
-      md5: b9cc675e20cb442b641ce74b483e7032
-      size: 5139
+      md5: 8f21cc9083a3510362d9367cf81c7c70
+      size: 5429
     params:
       params.yaml:
         global_variables.tracking_uri: 
@@ -72,8 +72,8 @@ stages:
     outs:
     - path: .\model\xgb_model.pkl
       hash: md5
-      md5: fff6f2aa080f13675e48f32df727293c
-      size: 450635
+      md5: 048f6c1d62625c2df2d70ddc2df0dede
+      size: 1121966
     - path: .\reports\confusion_matrix.png
       hash: md5
       md5: 82636df70f12a72c2ed68530419a4f12
@@ -84,8 +84,8 @@ stages:
       size: 131
     - path: .\reports\model_info.json
       hash: md5
-      md5: d41d09ef18821694b20421fd9c949147
-      size: 296
+      md5: 4607fc275821c057cd84be319ec0f932
+      size: 287
   model_evaluation:
     cmd: python .\src\eval.py
     deps:
@@ -95,12 +95,12 @@ stages:
       size: 131
     - path: .\reports\model_info.json
       hash: md5
-      md5: d41d09ef18821694b20421fd9c949147
-      size: 296
+      md5: 4607fc275821c057cd84be319ec0f932
+      size: 287
     - path: .\src\eval.py
       hash: md5
-      md5: b8f58a8aa3e775985b87bf5c1e8826c7
-      size: 1868
+      md5: c27aaed2e49b9ee576d334e3f663d964
+      size: 1785
     params:
       params.yaml:
         global_variables.tracking_uri: 

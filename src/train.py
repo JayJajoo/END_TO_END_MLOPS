@@ -22,10 +22,19 @@ with open(config_path, "r") as f:
 tracking_uri = config["global_variables"]["tracking_uri"]
 dagshub.init(repo_owner='JayJajoo', repo_name='END_TO_END_MLOPS', mlflow=True)
 
-train_set_path = os.path.join(PATH, "data", "train.csv")
-test_set_path = os.path.join(PATH, "data", "test.csv")
-model_path = os.path.join(PATH, "model", "xgb_model.pkl")
-reports_path = os.path.join(PATH, "reports")
+BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+DATA_DIR = os.path.join(BASE_DIR, "data")
+REPORTS_DIR = os.path.join(BASE_DIR, "reports")
+MODEL_DIR = os.path.join(BASE_DIR, "model")
+
+train_set_path = os.path.join(DATA_DIR, "train.csv")
+test_set_path = os.path.join(DATA_DIR, "test.csv")
+model_path = os.path.join(MODEL_DIR, "xgb_model.pkl")
+reports_path = REPORTS_DIR
+
+# Make sure dirs exist
+os.makedirs(REPORTS_DIR, exist_ok=True)
+os.makedirs(MODEL_DIR, exist_ok=True)
 
 mlflow.set_tracking_uri(tracking_uri)
 
