@@ -44,8 +44,8 @@ f1_score = run.data.metrics.get("test_f1_weighted", 0)
 THRESHOLD = 0.96
 
 if all([accuracy >= THRESHOLD, precision >= THRESHOLD, recall >= THRESHOLD, f1_score >= THRESHOLD]):
-    print("✅ PASS: Model metrics above threshold.")
+    print("PASS: Model metrics above threshold.")
 else:
-    print("❌ FAIL: Model metrics below threshold")
+    print("FAIL: Model metrics below threshold")
     print(f"Metrics: accuracy={accuracy}, precision={precision}, recall={recall}, f1_score={f1_score}")
     raise AssertionError("Model did not meet the threshold requirements.")

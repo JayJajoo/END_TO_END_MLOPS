@@ -158,5 +158,5 @@ with mlflow.start_run(run_name="mlops_xgb_parent_run_random_search") as parent_r
     with open(model_info_path, "w") as f:
         json.dump(model_info, f, indent=4)
 
-    print(f"\n✅ Final metrics saved to {metrics_path}")
-    print(f"✅ Run + model info saved to {model_info_path}")
+    print(f"\nFinal metrics saved to {metrics_path}")
+    print(f"Run + model info saved to {model_info_path}")
