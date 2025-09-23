@@ -129,15 +129,15 @@ with mlflow.start_run(run_name="mlops_xgb_parent_run_random_search") as parent_r
         pickle.dump(best_model, f)
     print("Model Saved!!")
 
-    # Confusion matrix
-    cm = confusion_matrix(y_test, y_pred)
-    disp = ConfusionMatrixDisplay(confusion_matrix=cm)
-    disp.plot(cmap=plt.cm.Blues)
-    plt.title("Confusion Matrix - Final Model")
-    cm_path = os.path.join(REPORTS_DIR, "confusion_matrix.png")
-    plt.savefig(cm_path)
-    plt.close()
-    mlflow.log_artifact(cm_path, artifact_path="confusion_matrix")
+    # # Confusion matrix
+    # cm = confusion_matrix(y_test, y_pred)
+    # disp = ConfusionMatrixDisplay(confusion_matrix=cm)
+    # disp.plot(cmap=plt.cm.Blues)
+    # plt.title("Confusion Matrix - Final Model")
+    # cm_path = os.path.join(REPORTS_DIR, "confusion_matrix.png")
+    # plt.savefig(cm_path)
+    # plt.close()
+    # mlflow.log_artifact(cm_path, artifact_path="confusion_matrix")
 
     # Metrics JSON
     metrics_path = os.path.join(REPORTS_DIR, "final_metrics.json")
