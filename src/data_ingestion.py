@@ -14,6 +14,8 @@ PATH = os.path.abspath(__file__)
 
 DATA_DIR = os.path.join(PATH,"..","..","data")
 
+os.makedirs(DATA_DIR, exist_ok=True)
+
 print(DATA_DIR)
 
 train_set = pd.concat([X_train,y_train],axis = 1)
