@@ -1,0 +1,4 @@
+[core]
+    remote = myremote
+['remote "myremote"']
+    url = s3://end-to-end-mlops/mlops_end_to_end_with_cicd

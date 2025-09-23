@@ -1,0 +1,49 @@
+stages:
+  data_ingestion:
+    cmd: python src/data_ingestion.py
+    deps:
+    - src/data_ingestion.py
+    outs:
+    - data/test.csv
+    - data/train.csv
+  model_training:
+    cmd: python .\src\train.py
+    deps:
+    - .\data\test.csv
+    - .\data\train.csv
+    - .\src\train.py
+    outs:
+    - .\model\xgb_model.pkl
+    - .\reports\confusion_matrix.png
+    - .\reports\final_metrics.json
+    - .\reports\model_info.json
+    params:
+    - global_variables.tracking_uri
+    - training.random_state
+    - training.hyper_params.n_estimators
+    - training.hyper_params.max_depth
+    - training.hyper_params.learning_rate
+    - training.hyper_params.subsample
+    - training.hyper_params.colsample_bytree
+    - training.hyper_params.gamma
+    - training.hyper_params.min_child_weight
+    - training.hyper_params.reg_lambda
+    - training.hyper_params.reg_alpha
+  model_evaluation:
+    cmd: python .\src\eval.py
+    deps:
+    - .\src\eval.py
+    - .\reports\final_metrics.json
+    - .\reports\model_info.json
+    params:
+    - global_variables.tracking_uri
+  model_registery:
+    cmd: python .\src\register_model.py
+    deps:
+    - .\src\register_model.py
+    - .\reports\model_info.json
+    outs:
+    - .\reports\registry_info.json
+    params:
+    - global_variables.tracking_uri
+
