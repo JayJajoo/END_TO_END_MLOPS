@@ -34,23 +34,28 @@ jobs:
           pip install -r requirements.txt
 
       - name: Configure Git
+        shell: cmd
         run: |
-          git config --global user.name "${GTHUB_USERNAME}"
-          git config --global user.email "${GTHUB_EMAIL}"
+          git config --global user.name "%GTHUB_USERNAME%"
+          git config --global user.email "%GTHUB_EMAIL%"
 
       - name: Configure DVC remote (S3)
+        shell: cmd
         run: |
           dvc remote add -f myremote s3://end-to-end-mlops/mlops_end_to_end_with_cicd
-          dvc remote modify myremote access_key_id $AWS_ACCESS_KEY_ID
-          dvc remote modify myremote secret_access_key $AWS_SECRET_ACCESS_KEY
+          dvc remote modify myremote access_key_id "%AWS_ACCESS_KEY_ID%"
+          dvc remote modify myremote secret_access_key "%AWS_SECRET_ACCESS_KEY%"
 
       - name: Run DVC pipeline
+        shell: cmd
         run: dvc exp run
 
       - name: Push outputs to DVC remote
+        shell: cmd
         run: dvc push
 
       - name: Commit changes
+        shell: cmd
         run: |
           git add .
           git commit -m "CI: update DVC outputs" || echo "No changes to commit"
