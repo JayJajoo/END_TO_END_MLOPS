@@ -8,7 +8,7 @@ on:
 
 jobs:
   run_dvc_pipeline:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     env:
       DAGSHUB_USERNAME: ${{ secrets.DAGSHUB_USERNAME }}
