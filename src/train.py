@@ -12,13 +12,14 @@ from mlflow.models.signature import infer_signature
 from mlflow import sklearn as mlflow_sklearn
 import dagshub
 
-PATH = os.path.join(os.path.dirname(__file__), "..", "..")
+PATH = os.path.join(os.path.dirname(__file__), "..")
+
 config_path = os.path.join(PATH, "params.yaml")
 
 with open(config_path, "r") as f:
-    config = yaml.safe_load(f)["training"]
+    config = yaml.safe_load(f)
 
-tracking_uri = config["tracking_uri"]
+tracking_uri = config["global_variables"]["tracking_uri"]
 dagshub.init(repo_owner='JayJajoo', repo_name='END_TO_END_MLOPS', mlflow=True)
 
 train_set_path = os.path.join(PATH, "data", "train.csv")
@@ -36,8 +37,8 @@ y_train  = train_set.iloc[:, -1]
 x_test   = test_set.iloc[:, :-1]
 y_test   = test_set.iloc[:, -1]
 
-params = config["hyper_params"]
-random_state = config["random_state"]
+params = config["training"]["hyper_params"]
+random_state = config["training"]["random_state"]
 
 xgb = XGBClassifier()
 random_search = RandomizedSearchCV(

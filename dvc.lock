@@ -16,3 +16,92 @@ stages:
       hash: md5
       md5: 91dd257ee69a81c95eab961cce93b5ba
       size: 2358
+  model_training:
+    cmd: python .\src\train.py
+    deps:
+    - path: .\data\test.csv
+      hash: md5
+      md5: 95f857168039f9cbb331b8d3be660f38
+      size: 648
+    - path: .\data\train.csv
+      hash: md5
+      md5: 91dd257ee69a81c95eab961cce93b5ba
+      size: 2358
+    - path: .\src\train.py
+      hash: md5
+      md5: b9cc675e20cb442b641ce74b483e7032
+      size: 5139
+    params:
+      params.yaml:
+        global_variables.tracking_uri: 
+          https://dagshub.com/JayJajoo/END_TO_END_MLOPS.mlflow
+        training.hyper_params.colsample_bytree:
+        - 0.7
+        - 0.9
+        - 1.0
+        training.hyper_params.gamma:
+        - 0
+        - 1
+        - 5
+        training.hyper_params.learning_rate:
+        - 0.01
+        - 0.05
+        - 0.1
+        training.hyper_params.max_depth:
+        - 3
+        - 5
+        - 7
+        training.hyper_params.min_child_weight:
+        - 1
+        - 3
+        - 5
+        training.hyper_params.n_estimators:
+        - 100
+        - 200
+        - 500
+        training.hyper_params.reg_alpha:
+        - 0
+        - 1
+        training.hyper_params.reg_lambda:
+        - 1
+        - 10
+        training.hyper_params.subsample:
+        - 0.8
+        - 1.0
+        training.random_state: 42
+    outs:
+    - path: .\model\xgb_model.pkl
+      hash: md5
+      md5: fff6f2aa080f13675e48f32df727293c
+      size: 450635
+    - path: .\reports\confusion_matrix.png
+      hash: md5
+      md5: 82636df70f12a72c2ed68530419a4f12
+      size: 15298
+    - path: .\reports\final_metrics.json
+      hash: md5
+      md5: 735afe236d4acf6e842b3a202f11bff6
+      size: 131
+    - path: .\reports\model_info.json
+      hash: md5
+      md5: d41d09ef18821694b20421fd9c949147
+      size: 296
+  model_evaluation:
+    cmd: python .\src\eval.py
+    deps:
+    - path: .\reports\final_metrics.json
+      hash: md5
+      md5: 735afe236d4acf6e842b3a202f11bff6
+      size: 131
+    - path: .\reports\model_info.json
+      hash: md5
+      md5: d41d09ef18821694b20421fd9c949147
+      size: 296
+    - path: .\src\eval.py
+      hash: md5
+      md5: b8f58a8aa3e775985b87bf5c1e8826c7
+      size: 1868
+    params:
+      params.yaml:
+        global_variables.tracking_uri: 
+          https://dagshub.com/JayJajoo/END_TO_END_MLOPS.mlflow

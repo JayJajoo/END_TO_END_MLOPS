@@ -37,13 +37,3 @@ stages:
     - .\reports\model_info.json
     params:
     - global_variables.tracking_uri
-  model_registery:
-    cmd: python .\src\register_model.py
-    deps:
-    - .\src\register_model.py
-    - .\reports\model_info.json
-    outs:
-    - .\reports\registry_info.json
-    params:
-    - global_variables.tracking_uri
-
