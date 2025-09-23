@@ -12,6 +12,9 @@ from mlflow.models.signature import infer_signature
 from mlflow import sklearn as mlflow_sklearn
 import dagshub
 
+os.environ["MLFLOW_DISABLE_ENV_MANAGER_CONSOLE_LOG"] = "true"
+os.environ["PYTHONIOENCODING"] = "utf-8"
+
 # Base paths
 BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 DATA_DIR = os.path.join(BASE_DIR, "data")
