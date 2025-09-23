@@ -60,3 +60,62 @@ jobs:
           git add .
           git commit -m "CI: update DVC outputs" || echo "No changes to commit"
           git push
+
+
+# name: MLOps CI/CD
+
+# on:
+#   push:
+#     branches:
+#       - main
+#   workflow_dispatch:
+
+# jobs:
+#   run_dvc_pipeline:
+#     runs-on: ubuntu-latest
+
+#     env:
+#       DAGSHUB_USERNAME: ${{ secrets.DAGSHUB_USERNAME }}
+#       DAGSHUB_TOKEN: ${{ secrets.DAGSHUB_TOKEN }}
+#       GTHUB_USERNAME: ${{ secrets.GTHUB_USERNAME }}
+#       GTHUB_TOKEN: ${{ secrets.GTHUB_TOKEN }}
+#       GTHUB_EMAIL: ${{ secrets.GTHUB_EMAIL }}
+#       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+#     steps:
+#       - name: Checkout repo
+#         uses: actions/checkout@v3
+
+#       - name: Set up Python
+#         uses: actions/setup-python@v4
+#         with:
+#           python-version: 3.11
+
+#       - name: Install dependencies
+#         run: |
+#           python -m pip install --upgrade pip
+#           pip install -r requirements.txt
+
+#       - name: Configure Git
+#         run: |
+#           git config --global user.name "${GTHUB_USERNAME}"
+#           git config --global user.email "${GTHUB_EMAIL}"
+
+#       - name: Configure DVC remote (S3)
+#         run: |
+#           dvc remote add -f myremote s3://end-to-end-mlops/mlops_end_to_end_with_cicd
+#           dvc remote modify myremote access_key_id $AWS_ACCESS_KEY_ID
+#           dvc remote modify myremote secret_access_key $AWS_SECRET_ACCESS_KEY
+
+#       - name: Run DVC pipeline
+#         run: dvc exp run
+
+#       - name: Push outputs to DVC remote
+#         run: dvc push
+
+#       - name: Commit changes
+#         run: |
+#           git add .
+#           git commit -m "CI: update DVC outputs" || echo "No changes to commit"
+#           git push
