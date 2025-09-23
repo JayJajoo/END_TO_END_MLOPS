@@ -12,7 +12,7 @@ X_train,X_test,y_train,y_test = train_test_split(X,Y,test_size=test_size,random_
 
 PATH = os.path.abspath(__file__)
 
-DATA_DIR = os.path.join(PATH,"..","data")
+DATA_DIR = os.path.join(PATH,"..","..","data")
 
 print(DATA_DIR)
 
